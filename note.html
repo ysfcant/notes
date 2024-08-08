@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not Detayı</title>
+    <style>
+        /* Stil ayarları buraya gelecek */
+    </style>
+</head>
+<body>
+    <div id="note-detail">
+        <!-- Not detayı burada gösterilecek -->
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAPyw2sOTYzpxAMplbRM4qvdqvv3h82xN0",
+            authDomain: "avatar-c0ee0.firebaseapp.com",
+            projectId: "avatar-c0ee0",
+            storageBucket: "avatar-c0ee0.appspot.com",
+            messagingSenderId: "233506433514",
+            appId: "1:233506433514:web:f5e30b19fe57ebf0a92a93"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const noteId = urlParams.get('id');
+
+        db.collection('notes').doc(noteId).get().then(doc => {
+            const note = doc.data();
+            document.getElementById('note-detail').innerHTML = `
+                <h1>${note.title}</h1>
+                <p>${note.content}</p>
+            `;
+        });
+    </script>
+</body>
+</html>
